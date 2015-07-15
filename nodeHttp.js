@@ -6,7 +6,6 @@ var res ;
 var app_id = '399575120226034';
 var secret = '64001edce7887cab6578136f0dae3e06';
 var redirect = 'localhost:3000'
-//random comment to push to git
 
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
 var graph_options = {
@@ -29,7 +28,7 @@ callback = function(response) {
 
   //the whole response has been recieved, so we just print it out here
   response.on('end', function () {
-    res = str;
+    var res = str;
     // res = JSON.parse(str);
     return(res);
   });
@@ -38,8 +37,8 @@ callback = function(response) {
 // takes the string returned by getting facebook access token and returns only the access code needed
 getToken = function(access_token) {
   var token = '';
-  var tokenStart = string.indexOf("=");
-  token = token + string.substring(tokenStart + 1, access_token.length)
+  var tokenStart = access_token.indexOf("=");
+  token = token + access_token.substring(tokenStart + 1, access_token.length)
   return(token)
 }
 
