@@ -6,7 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var db = require('./mongoose'),
+  express = require('express');
+// note that I'm leaving out the other things like 'http' or 'path'
 var app = express();
+
+// get the routes
+require('./routes')(app);
+// I just require routes, without naming it as a var, & that I pass (app)
 
 // Facebook authentication with Facebook passport strategy
 // Facebook client secret and clientId provided from facebook app
@@ -65,7 +72,11 @@ app.use('/users', users);
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback
-app.get('/auth/facebook', passport.authenticate('facebook'), { scope:['read_stream', 'manage_pages']});
+// module.exports = function(passport){
+//   var router = espress.Router()
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope:['read_stream', 'manage_pages']}));
+// }
+
 
 // Facebook will redirect the user to this URL after approval.  Finish the
 // authentication process by attempting to obtain an access token.  If
